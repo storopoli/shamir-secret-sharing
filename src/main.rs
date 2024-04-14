@@ -1,6 +1,7 @@
 use std::convert::identity;
 use std::error::Error;
 use std::ops::Range;
+use std::path::{Path, PathBuf};
 
 use plotters::coord::types::RangedCoordf32;
 use plotters::prelude::*;
@@ -23,7 +24,7 @@ const DIMENSIONS: (u32, u32) = (640, 480);
 /// * `secret` - Whether to plot the secret.
 #[allow(clippy::too_many_arguments)]
 fn create_chart(
-    filename: &str,
+    filename: &PathBuf,
     title: &str,
     dimensions: (u32, u32),
     x_range: Range<f32>,
@@ -165,10 +166,10 @@ where
 ///
 /// The chosen polynomial is x.
 fn points_only() -> Result<(), Box<dyn Error>> {
-    let filename = "points_only.svg";
+    let filename = Path::new("plots").join("points_only.svg");
 
     create_chart(
-        filename,
+        &filename,
         "Two Points are Uniquely Determined by a Line",
         DIMENSIONS,
         2.5f32..4.5f32,
@@ -185,17 +186,61 @@ fn points_only() -> Result<(), Box<dyn Error>> {
 ///
 /// The chosen polynomial is 2x³ - 3x² + 2x + 5.
 fn full_plot() -> Result<(), Box<dyn Error>> {
-    let filename = "full_plot.svg";
+    let filename = Path::new("plots").join("full_plot.svg");
 
     create_chart(
-        filename,
+        &filename,
         "Shamir's Secret Sharing",
         DIMENSIONS,
-        -2.1f32..2.1f32,
+        -2.1f32..2.4f32,
         -30.0f32..20.0f32,
         |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
         "2x³ - 3x² + 2x + 5",
         &[-2.0, -1.0, 1.0, 2.0],
+        true,
+    )?;
+
+    Ok(())
+}
+
+/// Creates an alternate chart with a polynomial,
+/// an alternate single share and the secret.
+///
+/// The chosen polynomial is 2x³ - 3x² + 2x + 5.
+fn full_plot_alternate_single() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("full_plot_alternate_single.svg");
+
+    create_chart(
+        &filename,
+        "Shamir's Secret Sharing: Alternate Single Share",
+        DIMENSIONS,
+        -1.1f32..3.4f32,
+        -30.0f32..60.0f32,
+        |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
+        "2x³ - 3x² + 2x + 5",
+        &[-1.0, 1.0, 2.0, 3.0],
+        true,
+    )?;
+
+    Ok(())
+}
+
+/// Creates an alternate chart with a polynomial,
+/// alternate multiple shares and the secret.
+///
+/// The chosen polynomial is 2x³ - 3x² + 2x + 5.
+fn full_plot_alternate_multiple() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("full_plot_alternate_multiple.svg");
+
+    create_chart(
+        &filename,
+        "Shamir's Secret Sharing: Alternate Multiple Shares",
+        DIMENSIONS,
+        -2.7f32..3.0f32,
+        -70.0f32..60.0f32,
+        |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
+        "2x³ - 3x² + 2x + 5",
+        &[-2.5, -1.5, 1.5, 2.5],
         true,
     )?;
 
@@ -207,6 +252,8 @@ fn full_plot() -> Result<(), Box<dyn Error>> {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     points_only()?;
     full_plot()?;
+    full_plot_alternate_single()?;
+    full_plot_alternate_multiple()?;
 
     Ok(())
 }
