@@ -195,6 +195,8 @@ fn full_plot() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// The main function.
+/// Calls the functions to create the charts.
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     points_only()?;
     full_plot()?;
