@@ -41,7 +41,7 @@ fn create_chart(
         .margin(5)
         .x_label_area_size(35)
         .y_label_area_size(40)
-        .build_cartesian_2d(x_range.clone(), y_range)?;
+        .build_cartesian_2d(x_range.clone(), y_range.clone())?;
 
     let x_labels_count = shares_x.len() + secret as usize;
     chart
@@ -53,6 +53,13 @@ fn create_chart(
         .y_label_formatter(&|v| format!("{:.0}", v))
         .draw()?;
 
+    // add vertical line at x=0
+    let vertical_line = LineSeries::new(vec![(0.0, y_range.start), (0.0, y_range.end)], BLACK);
+
+    // Draw the line on the chart
+    chart.draw_series(vertical_line)?;
+
+    // add the polynomial, shares and secret to the chart
     draw_polynomial(&mut chart, &polynomial, polynomial_str, x_range)?;
     draw_shares(&mut chart, &polynomial, shares_x)?;
     if secret {
@@ -117,7 +124,7 @@ where
             &|coord, size, style| {
                 EmptyElement::at(coord)
                     + Circle::new((0, 0), size, style)
-                    + Text::new(format!("{:?}", coord), (0, 10), ("sans-serif", 15))
+                    + Text::new(format!("{:?}", coord), (1, 10), ("sans-serif", 15))
             },
         ))?
         .label("Shares")
@@ -145,7 +152,7 @@ where
             &|coord, size, style| {
                 EmptyElement::at(coord)
                     + Circle::new((0, 0), size, style)
-                    + Text::new(format!("{:?}", coord), (0, 10), ("sans-serif", 15))
+                    + Text::new(format!("{:?}", coord), (1, 10), ("sans-serif", 15))
             },
         ))?
         .label("Secret")
@@ -164,11 +171,11 @@ fn points_only() -> Result<(), Box<dyn Error>> {
         filename,
         "Two Points are Uniquely Determined by a Line",
         DIMENSIONS,
-        -1.5f32..1.5f32,
-        -5.0f32..5.0f32,
+        2.5f32..4.5f32,
+        2.0f32..4.5f32,
         identity,
         "x²",
-        &[-1.0, 1.0],
+        &[3.0, 4.0],
         false,
     )?;
 
