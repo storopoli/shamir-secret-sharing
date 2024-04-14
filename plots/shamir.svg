@@ -46,6 +46,10 @@ Shamir&apos;s Secret Sharing
 <text x="189" y="226" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="12.096774193548388" opacity="1" fill="#000000">
 (-1.0, -2.0)
 </text>
+<circle cx="385" cy="156" r="5" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
+<text x="386" y="166" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="12.096774193548388" opacity="1" fill="#000000">
+(0.5, 5.5)
+</text>
 <circle cx="450" cy="152" r="5" opacity="1" fill="#FF0000" stroke="none" stroke-width="1"/>
 <text x="451" y="162" dy="0.76em" text-anchor="start" font-family="sans-serif" font-size="12.096774193548388" opacity="1" fill="#000000">
 (1.0, 6.0)

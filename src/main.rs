@@ -126,7 +126,7 @@ where
             &|coord, size, style| {
                 EmptyElement::at(coord)
                     + Circle::new((0, 0), size, style)
-                    + Text::new(format!("{:?}", coord), (1, 10), ("sans-serif", 15))
+                    + Text::new(format!("{:.1?}", coord), (1, 10), ("sans-serif", 15))
             },
         ))?
         .label("Shares")
@@ -240,7 +240,7 @@ fn shamir() -> Result<(), Box<dyn Error>> {
         -30.0f32..20.0f32,
         |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
         "2x³ - 3x² + 2x + 5",
-        &[-2.0, -1.0, 1.0, 2.0],
+        &[-2.0, -1.0, 0.5, 1.0, 2.0],
         true,
     )?;
 
@@ -262,7 +262,7 @@ fn shamir_alternate_single() -> Result<(), Box<dyn Error>> {
         -30.0f32..60.0f32,
         |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
         "2x³ - 3x² + 2x + 5",
-        &[-1.0, 1.0, 2.0, 3.0],
+        &[-1.0, 0.5, 1.0, 2.0, 3.0],
         true,
     )?;
 
@@ -284,7 +284,7 @@ fn shamir_alternate_multiple() -> Result<(), Box<dyn Error>> {
         -70.0f32..60.0f32,
         |x| 2.0 * x.powi(3) - 3.0 * x.powi(2) + 2.0 * x + 5.0,
         "2x³ - 3x² + 2x + 5",
-        &[-2.5, -1.5, 1.5, 2.5],
+        &[-2.5, -1.5, 0.8, 1.5, 2.5],
         true,
     )?;
 
