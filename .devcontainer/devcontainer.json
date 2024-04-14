@@ -1,0 +1,23 @@
+{
+  "name": "Rust",
+  "image": "mcr.microsoft.com/devcontainers/rust",
+
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {
+      "packages": "libfontconfig-dev"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "vadimcn.vscode-lldb",
+        "jock.svg"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}
