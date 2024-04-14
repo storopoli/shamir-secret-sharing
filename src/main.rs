@@ -1,3 +1,5 @@
+use std::convert::identity;
+use std::error::Error;
 use std::ops::Range;
 
 use plotters::coord::types::RangedCoordf32;
@@ -41,9 +43,10 @@ fn create_chart(
         .y_label_area_size(40)
         .build_cartesian_2d(x_range.clone(), y_range)?;
 
+    let x_labels_count = shares_x.len() + secret as usize;
     chart
         .configure_mesh()
-        .x_labels(5)
+        .x_labels(x_labels_count)
         .y_labels(5)
         .disable_mesh()
         .x_label_formatter(&|v| format!("{:.0}", v))
@@ -151,10 +154,30 @@ where
     Ok(())
 }
 
+/// Creates a chart with only the points of the shares.
+///
+/// The chosen polynomial is x.
+fn points_only() -> Result<(), Box<dyn Error>> {
+    let filename = "points_only.svg";
+
+    create_chart(
+        filename,
+        "Two Points are Uniquely Determined by a Line",
+        DIMENSIONS,
+        -1.5f32..1.5f32,
+        -5.0f32..5.0f32,
+        identity,
+        "x²",
+        &[-1.0, 1.0],
+        false,
+    )?;
+
+    Ok(())
+}
 /// Creates a chart with a polynomial, its shares and the secret.
 ///
 /// The chosen polynomial is 2x³ - 3x² + 2x + 5.
-fn full_plot() -> Result<(), Box<dyn std::error::Error>> {
+fn full_plot() -> Result<(), Box<dyn Error>> {
     let filename = "full_plot.svg";
 
     create_chart(
@@ -173,5 +196,8 @@ fn full_plot() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    full_plot()
+    points_only()?;
+    full_plot()?;
+
+    Ok(())
 }
