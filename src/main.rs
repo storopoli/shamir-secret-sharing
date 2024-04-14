@@ -1,5 +1,6 @@
 use std::convert::identity;
 use std::error::Error;
+use std::fs::create_dir_all;
 use std::ops::Range;
 use std::path::{Path, PathBuf};
 
@@ -293,6 +294,8 @@ fn shamir_alternate_multiple() -> Result<(), Box<dyn Error>> {
 /// The main function.
 /// Calls the functions to create the charts.
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Guarantee that the plots directory exists
+    create_dir_all("plots")?;
     line()?;
     quadratic()?;
     cubic()?;
