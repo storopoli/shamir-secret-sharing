@@ -171,7 +171,7 @@ fn line() -> Result<(), Box<dyn Error>> {
 
     create_chart(
         &filename,
-        "Two Points are Uniquely Determined by a Line",
+        "2 Points are Uniquely Determined by a Line",
         DIMENSIONS,
         2.5f32..4.5f32,
         2.0f32..4.5f32,
@@ -192,7 +192,7 @@ fn quadratic() -> Result<(), Box<dyn Error>> {
 
     create_chart(
         &filename,
-        "Three Points are Uniquely Determined by a Parabola",
+        "3 Points are Uniquely Determined by a Parabola",
         DIMENSIONS,
         -5.1f32..5.1f32,
         -1f32..26f32,
@@ -213,7 +213,7 @@ fn cubic() -> Result<(), Box<dyn Error>> {
 
     create_chart(
         &filename,
-        "Four Points are Uniquely Determined by a Cubic",
+        "4 Points are Uniquely Determined by a Cubic",
         DIMENSIONS,
         -2.5f32..2.5f32,
         -20.0f32..20.0f32,
