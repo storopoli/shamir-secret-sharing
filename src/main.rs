@@ -162,11 +162,11 @@ where
     Ok(())
 }
 
-/// Creates a chart with only the points of the shares.
+/// Creates a chart with a simple line.
 ///
 /// The chosen polynomial is x.
-fn points_only() -> Result<(), Box<dyn Error>> {
-    let filename = Path::new("plots").join("points_only.svg");
+fn line() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("line.svg");
 
     create_chart(
         &filename,
@@ -175,18 +175,61 @@ fn points_only() -> Result<(), Box<dyn Error>> {
         2.5f32..4.5f32,
         2.0f32..4.5f32,
         identity,
-        "x²",
+        "x",
         &[3.0, 4.0],
         false,
     )?;
 
     Ok(())
 }
+
+/// Creates a chart with a quadratic polynomial.
+///
+/// The chosen polynomial is x².
+fn quadratic() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("quadratic.svg");
+
+    create_chart(
+        &filename,
+        "Three Points are Uniquely Determined by a Parabola",
+        DIMENSIONS,
+        -5.1f32..5.1f32,
+        -1f32..26f32,
+        |x| x.powi(2),
+        "x²",
+        &[-4.0, 1.0, 4.0],
+        false,
+    )?;
+
+    Ok(())
+}
+
+/// Creates a chart with a cubic polynomial.
+///
+/// The chosen polynomial is x³.
+fn cubic() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("cubic.svg");
+
+    create_chart(
+        &filename,
+        "Four Points are Uniquely Determined by a Cubic",
+        DIMENSIONS,
+        -2.5f32..2.5f32,
+        -20.0f32..20.0f32,
+        |x| x.powi(3),
+        "x³",
+        &[-2.0, -1.0, 1.0, 2.0],
+        false,
+    )?;
+
+    Ok(())
+}
+
 /// Creates a chart with a polynomial, its shares and the secret.
 ///
 /// The chosen polynomial is 2x³ - 3x² + 2x + 5.
-fn full_plot() -> Result<(), Box<dyn Error>> {
-    let filename = Path::new("plots").join("full_plot.svg");
+fn shamir() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("shamir.svg");
 
     create_chart(
         &filename,
@@ -207,8 +250,8 @@ fn full_plot() -> Result<(), Box<dyn Error>> {
 /// an alternate single share and the secret.
 ///
 /// The chosen polynomial is 2x³ - 3x² + 2x + 5.
-fn full_plot_alternate_single() -> Result<(), Box<dyn Error>> {
-    let filename = Path::new("plots").join("full_plot_alternate_single.svg");
+fn shamir_alternate_single() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("shamir_alternate_single.svg");
 
     create_chart(
         &filename,
@@ -229,8 +272,8 @@ fn full_plot_alternate_single() -> Result<(), Box<dyn Error>> {
 /// alternate multiple shares and the secret.
 ///
 /// The chosen polynomial is 2x³ - 3x² + 2x + 5.
-fn full_plot_alternate_multiple() -> Result<(), Box<dyn Error>> {
-    let filename = Path::new("plots").join("full_plot_alternate_multiple.svg");
+fn shamir_alternate_multiple() -> Result<(), Box<dyn Error>> {
+    let filename = Path::new("plots").join("shamir_alternate_multiple.svg");
 
     create_chart(
         &filename,
@@ -250,10 +293,12 @@ fn full_plot_alternate_multiple() -> Result<(), Box<dyn Error>> {
 /// The main function.
 /// Calls the functions to create the charts.
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    points_only()?;
-    full_plot()?;
-    full_plot_alternate_single()?;
-    full_plot_alternate_multiple()?;
+    line()?;
+    quadratic()?;
+    cubic()?;
+    shamir()?;
+    shamir_alternate_single()?;
+    shamir_alternate_multiple()?;
 
     Ok(())
 }
